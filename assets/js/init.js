@@ -2,13 +2,13 @@
  * Created by teenmaz on 19/2/2016.
  */
 'use strict';
-angular.module('chotot',['ui.bootstrap','ui.router','ngCookies','ngResource','angular-sortable-view']);
-angular.module('chotot').run(['$rootScope','$location','$cookies',function($rootScope,$location,$cookies){
+angular.module('chotot',['angular-sortable-view']);
+angular.module('chotot').run(['$rootScope','$location',function($rootScope,$location){
     $rootScope.BaseUrlPublic=$location.$$protocol+'://'+$location.$$host;
     $rootScope.$location = $location;
 }]);
-angular.module('chotot').controller('MainController',['$rootScope','$scope','$http','$cookies','$window',
-    function($rootScope,$scope,$http,$cookies,$window){
+angular.module('chotot').controller('MainController',['$rootScope','$scope','$http','$window',
+    function($rootScope,$scope,$http,$window){
         var ajaxToServer = function(){return $http.get($rootScope.BaseUrlPublic+':3000/getResult');};
         var socket = io.connect(':3000',{reconnection:true});
         // Get result
