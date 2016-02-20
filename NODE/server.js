@@ -33,19 +33,14 @@ app.get('/getResult',function(req,res,next){
 var requestOtherSite = function(){
     request('http://chotot.local/index.php/chotot/getResult', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body); // Show the HTML for the Modulus homepage.
             localStorage.setItem('test',body);
             io.emit('getReresh','1111');
         }
     });
 };
-
 setInterval(function(){
     requestOtherSite();
-},180000);
-
-//180000
-
+},180000); // 3min
 io.on('connection', function(socket){
     if(localStorage.getItem('test')===null){
         requestOtherSite();
@@ -54,7 +49,6 @@ io.on('connection', function(socket){
         console.log('user disconnected');
     });
 });
-
 http.listen(3000, function(){
     console.log('listening on *:3000');
 });
